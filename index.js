@@ -17,7 +17,7 @@ module.exports = Emitter;
  */
 
 function Emitter () {
-  this.listeners = [];
+  this.listeners = {};
 }
 
 /**
