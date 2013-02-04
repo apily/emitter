@@ -19,3 +19,20 @@ module.exports = Emitter;
 function Emitter () {
   this.listeners = [];
 }
+
+/**
+ * @method on
+ * @description 
+ *   Listen on the given `event` with `fn`.
+ * 
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on = function (event, fn) {
+  (this.listeners[event] = this.listeners[event] || [])
+    .push(fn);
+  return this;
+};
