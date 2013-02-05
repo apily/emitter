@@ -152,3 +152,19 @@ Emitter.prototype.listen = function (emitter, event, cb) {
   emitter.on(event, cb);
   return this;
 };
+
+/**
+ * @method unlisten
+ * @description
+ *   Unlisten onother event emitter
+ * @param {Emitter} emitter emitter to listen to
+ * @param {Event} event event to listen to
+ * @param {Function} cb callback
+ * @return {Emitter} this for chaining
+ * @api public
+ */
+
+Emitter.prototype.unlisten = function (emitter, event, cb) {
+  emitter.off(event, cb);
+  return this;
+};
