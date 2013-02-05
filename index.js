@@ -79,7 +79,9 @@ Emitter.prototype.off = function (event, fn) {
 };
 
 /**
- * Emit `event` with the given args.
+ * @method emit
+ * @description
+ *   Emit `event` with the given args.
  *
  * @param {String} event
  * @param {Mixed} ...
@@ -103,4 +105,18 @@ Emitter.prototype.emit = function (event) {
   }
 
   return this;
+};
+
+/**
+ * @method listeners
+ * @description
+ *   Return array of callbacks for `event`.
+ *
+ * @param {String} event event
+ * @return {Array} listeners
+ * @api public
+ */
+
+Emitter.prototype.listeners = function (event) {
+  return this._listeners[event] || [];
 };
