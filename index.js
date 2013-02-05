@@ -17,7 +17,7 @@ module.exports = Emitter;
  */
 
 function Emitter () {
-  this.listeners = {};
+  this._listeners = {};
 }
 
 /**
@@ -32,7 +32,7 @@ function Emitter () {
  */
 
 Emitter.prototype.on = function (event, fn) {
-  (this.listeners[event] = this.listeners[event] || [])
+  (this._listeners[event] = this._listeners[event] || [])
     .push(fn);
   return this;
 };
