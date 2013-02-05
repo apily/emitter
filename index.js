@@ -13,6 +13,13 @@
 module.exports = Emitter;
 
 /**
+ * Utilities
+ */
+
+var array = [];
+var slice = array.slice;
+
+/**
  * @constructor Emitter
  */
 
@@ -68,5 +75,32 @@ Emitter.prototype.off = function (event, fn) {
   if (i !== -1) {
    callbacks.splice(i, 1);
   }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function (event) {
+  var listeners = this._listeners[event];
+  var listener;
+  var len;
+  var i;
+  var args;
+
+  if (!listeners) {
+   return this;
+  }
+  len = listeners.length;
+  args = slice.call(arguments, 1);
+  for (i = 0; i < len; i += 1) {
+    listeners[i].apply(this, args);
+  }
+
   return this;
 };
