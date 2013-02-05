@@ -2,6 +2,10 @@
 
 Event emitter component
 
+## Installation
+
+    $ component install apily/emitter
+
 ## License
 
 (The MIT License)
