@@ -32,8 +32,11 @@ function Emitter () {
  */
 
 Emitter.prototype.on = function (event, fn) {
-  (this._listeners[event] = this._listeners[event] || [])
-    .push(fn);
+  var listeners 
+    = this._listeners[event] 
+    = this._listeners[event] || [];
+   
+  listeners.push(fn);
   return this;
 };
 
@@ -57,16 +60,13 @@ Emitter.prototype.off = function (event, fn) {
   if (!listener) {
    return this;
   }
-
   if (1 == arguments.length) {
     delete this._listeners[event];
     return this;
   }
-
   i = listeners.indexOf(fn);
   if (i !== -1) {
    callbacks.splice(i, 1);
   }
-  
   return this;
 };
