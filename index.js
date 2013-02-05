@@ -120,3 +120,19 @@ Emitter.prototype.emit = function (event) {
 Emitter.prototype.listeners = function (event) {
   return this._listeners[event] || [];
 };
+
+/**
+ * @method listening
+ * @description
+ *   Check if this emitter has `event` handlers.
+ * @param {String} event event
+ * @return {Boolean} 
+ *   `true` if this emitter has `event` handlers,
+ *   `false` otherwise
+ * @api public
+ */
+
+Emitter.prototype.listening = function (event) {
+  var listeners = this._listeners[event];
+  return !!(listeners && listeners.length);
+};
