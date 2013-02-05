@@ -136,3 +136,19 @@ Emitter.prototype.listening = function (event) {
   var listeners = this._listeners[event];
   return !!(listeners && listeners.length);
 };
+
+/**
+ * @method listen
+ * @description
+ *   Listen onother event emitter
+ * @param {Emitter} emitter emitter to listen to
+ * @param {Event} event event to listen to
+ * @param {Function} cb callback
+ * @return {Emitter} this for chaining
+ * @api public
+ */
+
+Emitter.prototype.listen = function (emitter, event, cb) {
+  emitter.on(event, cb);
+  return this;
+};
