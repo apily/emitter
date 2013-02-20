@@ -1,3 +1,4 @@
+
 /**
  * Emitter
  * Event emitter component
@@ -32,18 +33,22 @@ function Emitter () {
  * @description 
  *   Listen on the given `event` with `fn`.
  * 
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
+ * @param {String} event event
+ * @param {Function} callback callback
+ * @param {Object} context context
+ * @return {Emitter} this for chaining
  * @api public
  */
 
-Emitter.prototype.on = function (event, fn) {
+Emitter.prototype.on = function (event, callback, context) {
   var listeners 
     = this._listeners[event] 
     = this._listeners[event] || [];
    
-  listeners.push(fn);
+  listeners.push({
+    listener: callback,
+    context: context
+  });
   return this;
 };
 
@@ -54,14 +59,15 @@ Emitter.prototype.on = function (event, fn) {
  *   or all registered callbacks.
  *
  * @param {String} event event
- * @param {Function} fn callback to remove
- * @return {Emitter}
+ * @param {Function} callback callback to remove
+ * @return {Emitter} this for chaining
  * @api public
  */
 
-Emitter.prototype.off = function (event, fn) {
+Emitter.prototype.off = function (event, callback) {
   var listeners = this._listeners[event];
   var listener;
+  var len;
   var i;
   
   if (!listener) {
@@ -71,10 +77,15 @@ Emitter.prototype.off = function (event, fn) {
     delete this._listeners[event];
     return this;
   }
-  i = listeners.indexOf(fn);
-  if (i !== -1) {
-   callbacks.splice(i, 1);
+  len = listeners.length;
+  for (i = 0; i < len; i += 1) {
+    listener = listeners[i];
+    if (listener.callback === callback) {
+      listeners.splice(i, 1);
+      return this;
+    }
   }
+
   return this;
 };
 
@@ -83,9 +94,9 @@ Emitter.prototype.off = function (event, fn) {
  * @description
  *   Emit `event` with the given args.
  *
- * @param {String} event
+ * @param {String} event event
  * @param {Mixed} ...
- * @return {Emitter}
+ * @return {Emitter} this for chaining
  */
 
 Emitter.prototype.emit = function (event) {
@@ -101,24 +112,11 @@ Emitter.prototype.emit = function (event) {
   len = listeners.length;
   args = slice.call(arguments, 1);
   for (i = 0; i < len; i += 1) {
-    listeners[i].apply(this, args);
+    listener = listeners[i];
+    listener.callback.apply(listener.context, args);
   }
 
   return this;
-};
-
-/**
- * @method listeners
- * @description
- *   Return array of callbacks for `event`.
- *
- * @param {String} event event
- * @return {Array} listeners
- * @api public
- */
-
-Emitter.prototype.listeners = function (event) {
-  return this._listeners[event] || [];
 };
 
 /**
@@ -143,13 +141,13 @@ Emitter.prototype.listening = function (event) {
  *   Listen onother event emitter
  * @param {Emitter} emitter emitter to listen to
  * @param {Event} event event to listen to
- * @param {Function} cb callback
+ * @param {Function} callback callback
  * @return {Emitter} this for chaining
  * @api public
  */
 
-Emitter.prototype.listen = function (emitter, event, cb) {
-  emitter.on(event, cb);
+Emitter.prototype.listen = function (emitter, event, callback) {
+  emitter.on(event, cb, this);
   return this;
 };
 
