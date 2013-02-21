@@ -109,8 +109,8 @@ Emitter.prototype.emit = function (event) {
   if (!listeners) {
    return this;
   }
-  len = listeners.length;
   args = slice.call(arguments, 1);
+  len = listeners.length;
   for (i = 0; i < len; i += 1) {
     listener = listeners[i];
     listener.callback.apply(listener.context, args);
