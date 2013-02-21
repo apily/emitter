@@ -1,4 +1,3 @@
-
 /**
  * Emitter
  * Event emitter component
@@ -147,7 +146,7 @@ Emitter.prototype.listening = function (event) {
  */
 
 Emitter.prototype.listen = function (emitter, event, callback) {
-  emitter.on(event, cb, this);
+  emitter.on(event, callback, this);
   return this;
 };
 
@@ -162,7 +161,7 @@ Emitter.prototype.listen = function (emitter, event, callback) {
  * @api public
  */
 
-Emitter.prototype.unlisten = function (emitter, event, cb) {
-  emitter.off(event, cb);
+Emitter.prototype.unlisten = function (emitter, event, callback) {
+  emitter.off(event, callback);
   return this;
 };
