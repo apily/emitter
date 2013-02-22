@@ -45,7 +45,7 @@ Emitter.prototype.on = function (event, callback, context) {
     = this._listeners[event] || [];
    
   listeners.push({
-    listener: callback,
+    callback: callback,
     context: context
   });
   return this;
