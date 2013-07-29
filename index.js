@@ -88,6 +88,28 @@ Emitter.prototype.off = function (event, callback) {
   return this;
 };
 
+
+/**
+ * @method once
+ * @description 
+ *   Listen on the given `event` just once with `fn`.
+ * 
+ * @param {String} event event
+ * @param {Function} callback callback
+ * @param {Object} context context
+ * @return {Emitter} this for chaining
+ * @api public
+ */
+ 
+Emitter.prototype.once = function (event, callback, context) {
+ var fn = function () {
+   callback.call(context);
+   this.off(event, fn);
+ };
+ this.on(event, fn, this);
+ return this;
+};
+
 /**
  * @method emit
  * @description
