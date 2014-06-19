@@ -1,0 +1,10 @@
+{
+  "name": "apily-emitter",
+  "version": "0.1.0",
+  "scripts": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "description": "Event emitter component",
+  "keywords": ["event", "emitter"],
+  "license": "MIT"
+}
