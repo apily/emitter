@@ -1,7 +1,7 @@
 {
   "name": "apily-emitter",
   "version": "0.1.0",
-  "scripts": "index.js",
+  "main": "index.js",
   "dependencies": {},
   "devDependencies": {},
   "description": "Event emitter component",
